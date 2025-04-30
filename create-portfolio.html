@@ -66,42 +66,43 @@
 </div>
 
 <script>
-document.getElementById('portfolio-form').addEventListener('submit', async function(e) {
-  e.preventDefault();
-
-  const data = {
-    name: document.getElementById('name').value,
-    bio: document.getElementById('bio').value,
-    skills: document.getElementById('skills').value.split(',').map(s => s.trim()),
-    projects: document.getElementById('projects').value.split('\n').map(s => s.trim()),
-    email: document.getElementById('email').value,
-    github: document.getElementById('github').value,
-    blog: document.getElementById('blog').value,
-    message: document.getElementById('message').value,
-  };
-
-  try {
-    const response = await fetch('/portfolios', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data)
-    });
-
-    if (!response.ok) {
-      const error = await response.text();
-      alert('오류 발생: ' + error);
-      return;
+  const API_BASE = "https://portfolio-backend-6op9.onrender.com";
+  
+  document.getElementById('portfolio-form').addEventListener('submit', async function(e) {
+    e.preventDefault();
+  
+    const data = {
+      name: document.getElementById('name').value,
+      bio: document.getElementById('bio').value,
+      skills: document.getElementById('skills').value.split(',').map(s => s.trim()),
+      projects: document.getElementById('projects').value.split('\n').map(s => s.trim()),
+      email: document.getElementById('email').value,
+      github: document.getElementById('github').value,
+      blog: document.getElementById('blog').value,
+      message: document.getElementById('message').value,
+    };
+  
+    try {
+      const response = await fetch(`${API_BASE}/portfolios`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+  
+      if (!response.ok) {
+        const error = await response.text();
+        alert('오류 발생: ' + error);
+        return;
+      }
+  
+      const result = await response.json();
+      alert('포트폴리오가 성공적으로 저장되었습니다!');
+      window.location.href = `${API_BASE}${result.link}`;  // Render 주소 기준으로 포트폴리오 열기
+    } catch (err) {
+      console.error('오류:', err);
+      alert('요청 처리 중 문제가 발생했습니다.');
     }
-
-    const result = await response.json();
-    alert('포트폴리오가 성공적으로 저장되었습니다!');
-    window.location.href = result.link;  // 생성된 포트폴리오 파일로 이동
-  } catch (err) {
-    console.error('오류:', err);
-    alert('요청 처리 중 문제가 발생했습니다.');
-  }
-});
-</script>
-
+  });
+  </script>  
 </body>
 </html>

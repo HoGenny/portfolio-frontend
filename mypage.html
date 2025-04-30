@@ -172,6 +172,8 @@
   </div>
 
   <script>
+    const API_BASE = "https://portfolio-backend-6op9.onrender.com";
+  
     const user = JSON.parse(localStorage.getItem("user"));
     if (!user) {
       alert("로그인 후 이용 가능합니다.");
@@ -181,7 +183,7 @@
     // 생년월일 포맷 수정
     let formattedBirthdate = "-";
     if (user.birthdate) {
-      const date = new Date(user.birthdate);  // ✅ 오타 수정
+      const date = new Date(user.birthdate);
       formattedBirthdate = date.toISOString().slice(0, 10);
     }
   
@@ -189,12 +191,10 @@
     document.getElementById("username").textContent = user.realname || user.username;
     document.getElementById("birthdate").textContent = "생년월일: " + formattedBirthdate;
     document.getElementById("bio").textContent = user.bio || "한 줄 소개가 여기에 표시됩니다.";
-
-
   
     async function loadServerPortfolios() {
       try {
-        const response = await fetch('/api/portfolios');
+        const response = await fetch(`${API_BASE}/api/portfolios`);
         const files = await response.json();
   
         const portfolioSection = document.getElementById("portfolio-section");
@@ -208,14 +208,13 @@
             card.className = "portfolio-item";
   
             card.innerHTML = `
-            <div style="width:100%; height:200px; overflow:hidden; border-radius:8px; border:1px solid #ddd;">
-              <iframe src="/portfolios/${file.filename}" style="transform:scale(0.6); transform-origin: top left; width:166.67%; height:333px; border:none;"></iframe>
-            </div>
+              <div style="width:100%; height:200px; overflow:hidden; border-radius:8px; border:1px solid #ddd;">
+                <iframe src="${API_BASE}/portfolios/${file.filename}" style="transform:scale(0.6); transform-origin: top left; width:166.67%; height:333px; border:none;"></iframe>
+              </div>
               <div class="portfolio-item-title">${file.title}</div>
               <button class="btn" onclick="editPortfolio('${file.filename}')">편집</button>
               <button class="btn delete" onclick="deletePortfolio('${file.filename}')">삭제</button>
             `;
-
   
             portfolioList.appendChild(card);
           });
@@ -228,40 +227,38 @@
       }
     }
   
-  // 포트폴리오 삭제
     async function deletePortfolio(filename) {
-    if (!confirm("정말 이 포트폴리오를 삭제하시겠습니까?")) return;
-
-    try {
-      const response = await fetch(`/api/portfolios/${filename}`, {
-        method: "DELETE"
-      });
-
-      const result = await response.json();
-
-      if (!response.ok) {
-        alert("삭제 실패: " + result.message);
-        return;
+      if (!confirm("정말 이 포트폴리오를 삭제하시겠습니까?")) return;
+  
+      try {
+        const response = await fetch(`${API_BASE}/api/portfolios/${filename}`, {
+          method: "DELETE"
+        });
+  
+        const result = await response.json();
+  
+        if (!response.ok) {
+          alert("삭제 실패: " + result.message);
+          return;
+        }
+  
+        alert("포트폴리오가 삭제되었습니다.");
+        window.location.reload();
+      } catch (err) {
+        console.error("삭제 요청 오류:", err);
+        alert("서버와의 연결에 실패했습니다.");
       }
-
-      alert("포트폴리오가 삭제되었습니다.");
-      window.location.reload(); // 새로고침으로 목록 반영
-    } catch (err) {
-      console.error("삭제 요청 오류:", err);
-      alert("서버와의 연결에 실패했습니다.");
     }
-  }
-
-  // 포트폴리오 편집
-function editPortfolio(filename) {
-  window.location.href = `edit-portfolio-form.html?file=${filename}`;
-}
-
-function viewPortfolio(filename) {
-  window.location.href = "/portfolios/" + filename;
-}
-
+  
+    function editPortfolio(filename) {
+      window.location.href = `edit-portfolio-form.html?file=${filename}`;
+    }
+  
+    function viewPortfolio(filename) {
+      window.location.href = `${API_BASE}/portfolios/${filename}`;
+    }
+  
     loadServerPortfolios();
-  </script>     
+  </script>   
 </body>
 </html>
