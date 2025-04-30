@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>포트폴리오 메인</title>
+  <style>
+    :root {
+      --blue: #3182f6;
+      --light-bg: #f9fafb;
+      --text: #1e1e1e;
+    }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    html, body {
+      height: 100%;
+      scroll-behavior: smooth;
+    }
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: var(--light-bg);
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
+      overflow-y: scroll;
+      scroll-snap-type: y mandatory;
+    }
+    section, .container {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    }
+    section.visible, .container.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .logo {
+      position: fixed;
+      top: -0.5rem;
+      left: 1.2rem;
+      z-index: 1000;
+    }
+    .logo img {
+      height: 95px;
+      width: auto;
+      user-select: none;
+    }
+    .auth {
+      position: fixed;
+      top: 1.5rem;
+      right: 2rem;
+      z-index: 1000;
+    }
+    .auth button {
+      background: transparent;
+      color: var(--text);
+      padding: 0.5rem 1rem;
+      border: none;
+      font-size: 0.95rem;
+      cursor: pointer;
+      font-weight: 500;
+    }
+    .auth button:hover {
+      text-decoration: underline;
+    }
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      padding: 4rem 2rem;
+      gap: 2rem;
+      text-align: center;
+    }
+    .hero-img {
+      width: 100%;
+      max-width: 480px;
+      height: auto;
+      border-radius: 24px;
+      box-shadow: none;
+      background-color: transparent;
+      transform: translateY(50px);
+      opacity: 0;
+      animation: fadeInUp 1s ease forwards;
+      margin-bottom: 1rem;
+    }
+    .content {
+      max-width: 520px;
+      opacity: 0;
+      transform: translateY(50px);
+      animation: fadeInUp 1s ease 0.3s forwards;
+    }
+    h1.rotating-text {
+      min-height: 5.0rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+      line-height: 1.5;
+      margin-bottom: 2.0rem;
+      font-size: 1.8rem;
+      padding: 1.0rem 0;
+    }
+    h1.rotating-text span {
+      position: absolute;
+      width: 100%;
+      opacity: 0;
+      animation: rotateText 12s infinite;
+      white-space: normal;
+      word-break: keep-all;
+    }
+    h1.rotating-text span:nth-child(1) { animation-delay: 0s; }
+    h1.rotating-text span:nth-child(2) { animation-delay: 4s; }
+    h1.rotating-text span:nth-child(3) { animation-delay: 8s; }
+
+    @keyframes rotateText {
+      0%, 100% { opacity: 0; transform: translateY(100%); }
+      10%, 30% { opacity: 1; transform: translateY(0); }
+      35%, 100% { opacity: 0; transform: translateY(-100%); }
+    }
+
+    p {
+      font-size: 1.15rem;
+      color: #555;
+      margin-bottom: 2rem;
+    }
+    .btn {
+      display: inline-block;
+      background: var(--blue);
+      color: white;
+      padding: 0.8rem 2rem;
+      border: none;
+      border-radius: 12px;
+      font-size: 1.05rem;
+      font-weight: 500;
+      text-decoration: none;
+      transition: background 0.3s ease;
+    }
+    .btn:hover {
+      background: #2563eb;
+    }
+    .info-section {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 3rem 2rem;
+      background-color: #fff;
+      text-align: center;
+    }
+    .info-section h2 {
+      font-size: 2rem;
+      margin-bottom: 1.2rem;
+    }
+    .info-section p {
+      max-width: 600px;
+      font-size: 1.1rem;
+    }
+    .example-section {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 2rem;
+      background-color: #fefefe;
+      text-align: center;
+    }
+    .example-section h2 {
+      font-size: 2rem;
+      margin-bottom: 1.5rem;
+    }
+    .example-section p {
+      max-width: 600px;
+      margin-bottom: 2rem;
+    }
+    .example-preview {
+      width: 100%;
+      max-width: 900px;
+      height: 480px;
+      border: 1px solid #ddd;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+      margin-bottom: 1.5rem;
+    }
+    .example-preview iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+    @keyframes fadeInUp {
+      from {
+        transform: translateY(50px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+    @media (max-width: 768px) {
+      .container {
+        padding-top: 6rem;
+      }
+      .hero-img {
+        max-width: 90vw;
+      }
+      .example-preview {
+        height: 300px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <a href="index.html" class="logo">
+    <img src="static/images/logo.png" alt="로고">
+  </a>
+  <div class="auth" id="auth-area"></div>
+
+  <!-- 메인 히어로 -->
+  <div class="container">
+    <img src="static/images/image.png" alt="Portfolio Visual" class="hero-img" />
+    <div class="content">
+      <h1 class="rotating-text">
+        <span>나의 코드 여정을 소개합니다</span>
+        <span>포트폴리오로 성장의 기록을 남기세요</span>
+        <span>당신의 개발 스토리를 담아보세요</span>
+      </h1>
+      <p>개발은 나의 언어이고, 매일의 기록입니다.</p>
+      <a id="portfolio-btn" href="login.html" class="btn">포트폴리오 만들기</a>
+    </div>
+  </div>
+
+  <!-- 설명 섹션 1 -->
+  <section class="info-section">
+    <h2>누구나 쉽게 만드는 포트폴리오</h2>
+    <p>디자인에 자신 없어도 걱정하지 마세요. 템플릿 기반으로 누구나 손쉽게 포트폴리오를 만들 수 있어요.</p>
+  </section>
+
+  <!-- 설명 섹션 2 -->
+  <section class="info-section">
+    <h2>모바일과 데스크탑 모두 지원</h2>
+    <p>반응형 웹으로 언제 어디서나 당신의 개발 스토리를 공유해보세요. 채용담당자에게도 완벽하게 전달됩니다.</p>
+  </section>
+
+  <!-- 포트폴리오 예시 섹션 -->
+  <section class="example-section">
+    <h2>🎨 포트폴리오 예시</h2>
+    <p>아래는 실제로 구현된 예시 포트폴리오입니다. 클릭 시 전체 페이지로 이동합니다.</p>
+    <div class="example-preview">
+      <iframe src="template2.html"></iframe>
+    </div>
+    <a href="template2.html" class="btn" target="_blank">전체 예시 보기</a>
+  </section>
+
+  <!-- JS -->
+  <script>
+    const sections = document.querySelectorAll("section, .container");
+
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add("visible");
+      observer.unobserve(entry.target); // 한 번만 애니메이션 실행
+    }
+  });
+}, { threshold: 0.2 });
+
+  sections.forEach(section => observer.observe(section));
+
+
+    // 로그인 상태 확인 및 UI 처리
+    const user = JSON.parse(localStorage.getItem("user"));
+    const portfolioBtn = document.getElementById("portfolio-btn");
+    const authArea = document.getElementById("auth-area");
+
+    if (user && user.username) {
+      const logoutBtn = document.createElement("button");
+      logoutBtn.textContent = "로그아웃";
+      logoutBtn.onclick = () => {
+        localStorage.removeItem("user");
+        alert("로그아웃 되었습니다.");
+        location.reload();
+      };
+
+      const mypageBtn = document.createElement("button");
+      mypageBtn.textContent = "마이페이지";
+      mypageBtn.onclick = () => window.location.href = "mypage.html";
+
+      authArea.appendChild(logoutBtn);
+      authArea.appendChild(mypageBtn);
+
+      portfolioBtn.href = "create-portfolio.html";
+    } else {
+      const loginBtn = document.createElement("button");
+      loginBtn.textContent = "로그인";
+      loginBtn.onclick = () => location.href = "login.html";
+      authArea.appendChild(loginBtn);
+    }
+  </script>
+</body>
+</html>

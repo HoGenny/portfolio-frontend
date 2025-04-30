@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>포트폴리오 편집</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f9fafb;
+      color: #1e1e1e;
+      padding: 2rem;
+    }
+    .form-container {
+      max-width: 600px;
+      margin: 5rem auto;
+      background-color: #fff;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
+    }
+    .logo {
+      position: fixed;
+      top: -0.5rem;
+      left: 1.2rem;
+      z-index: 1000;
+    }
+    .logo img {
+      height: 95px;
+      width: auto;
+      user-select: none;
+    }
+    h2 {
+      margin-bottom: 1.5rem;
+      font-size: 1.6rem;
+      color: #3182f6;
+    }
+    label {
+      display: block;
+      margin-bottom: 0.4rem;
+      font-weight: 500;
+    }
+    input[type="text"],
+    input[type="file"],
+    textarea {
+      width: 100%;
+      padding: 0.6rem;
+      margin-bottom: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 1rem;
+    }
+    .btn {
+      display: block;
+      width: 100%;
+      padding: 0.75rem;
+      background-color: #3182f6;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-size: 1rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    .btn:hover {
+      background-color: #2563eb;
+    }
+  </style>
+</head>
+<body>
+  <a href="index.html" class="logo">
+    <img src="static/images/logo.png" alt="로고" />
+  </a>
+  <div class="form-container">
+    <h2>나만의 포트폴리오 만들기</h2>
+    <form id="portfolio-form">
+      <label for="name">이름</label>
+      <input type="text" id="name" placeholder="예: 홍길동" required />
+
+      <label for="bio">한줄 소개</label>
+      <input type="text" id="bio" placeholder="예: 코드를 모험하는 개발자" required />
+
+      <label for="tags">개발자 태그 (쉼표로 구분)</label>
+      <input type="text" id="tags" placeholder="예: 문제해결가, 호기심 폭발, 창의적 사고" />
+
+      <label for="timeline">프로젝트 타임라인 (한 줄씩 작성)</label>
+      <textarea id="timeline" rows="4" placeholder="예: 2025.01 - 포트폴리오 제작"></textarea>
+
+      <label for="skills">기술 스택 (한 줄씩 작성)</label>
+      <textarea id="skills" rows="3" placeholder="예: HTML ⭐⭐⭐⭐⭐"></textarea>
+
+      <label for="quests">사이드 퀘스트 (한 줄씩 작성)</label>
+      <textarea id="quests" rows="3" placeholder="예: 교내 해커톤 참여"></textarea>
+
+      <label for="email">이메일</label>
+      <input type="text" id="email" placeholder="예: me@example.com" />
+
+      <label for="github">GitHub 링크</label>
+      <input type="text" id="github" placeholder="예: https://github.com/myid" />
+
+      <label for="blog">블로그 링크</label>
+      <input type="text" id="blog" placeholder="예: https://blog.me" />
+
+      <label for="message">마무리 문장</label>
+      <input type="text" id="message" placeholder="예: 함께하면 즐거운 개발자가 되고 싶습니다." />
+
+      <button type="submit" class="btn">포트폴리오 저장</button>
+    </form>
+  </div>
+
+  <script>
+    const form = document.getElementById("portfolio-form");
+
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      const data = {
+        name: document.getElementById("name").value,
+        bio: document.getElementById("bio").value,
+        tags: document.getElementById("tags").value.split(",").map(s => s.trim()),
+        timeline: document.getElementById("timeline").value.split("\n"),
+        skills: document.getElementById("skills").value.split("\n"),
+        quests: document.getElementById("quests").value.split("\n"),
+        email: document.getElementById("email").value,
+        github: document.getElementById("github").value,
+        blog: document.getElementById("blog").value,
+        message: document.getElementById("message").value
+      };
+
+      const html = `<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>${data.name}의 포트폴리오</title>
+  <style>
+    body { font-family: 'Segoe UI', sans-serif; margin: 0; }
+    section { height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; scroll-snap-align: start; text-align: center; padding: 2rem; }
+    .section-title { font-size: 2rem; color: #3182f6; margin-bottom: 1rem; }
+    .tags span, .skills div, .quests div { margin: 0.4rem; padding: 0.6rem 1rem; background: #eff6ff; border-radius: 10px; }
+    a { color: #3182f6; text-decoration: none; margin: 0 0.5rem; }
+  </style>
+</head>
+<body>
+  <section class="hero">
+    <h1>${data.name}</h1>
+    <p>${data.bio}</p>
+  </section>
+  <section>
+    <div class="section-title">개발자 태그</div>
+    <div class="tags">${data.tags.map(tag => `<span>${tag}</span>`).join("")}</div>
+  </section>
+  <section>
+    <div class="section-title">프로젝트 타임라인</div>
+    ${data.timeline.map(item => `<div>${item}</div>`).join("")}
+  </section>
+  <section>
+    <div class="section-title">기술 스택</div>
+    <div class="skills">${data.skills.map(skill => `<div>${skill}</div>`).join("")}</div>
+  </section>
+  <section>
+    <div class="section-title">사이드 퀘스트</div>
+    <div class="quests">${data.quests.map(q => `<div>${q}</div>`).join("")}</div>
+  </section>
+  <section>
+    <div class="section-title">연락처</div>
+    <p>${data.email}</p>
+    <p>
+      ${data.github ? `<a href="${data.github}" target="_blank">GitHub</a>` : ""}
+      ${data.blog ? `<a href="${data.blog}" target="_blank">Blog</a>` : ""}
+    </p>
+  </section>
+  <section>
+    <p>${data.message}</p>
+  </section>
+</body>
+</html>`;
+
+      localStorage.setItem("personalPortfolioHTML", html);
+      alert("포트폴리오가 저장되었습니다!");
+      window.location.href = "mypage.html";
+    });
+  </script>
+</body>
+</html>
