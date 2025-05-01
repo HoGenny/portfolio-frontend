@@ -103,7 +103,7 @@
   
       const result = await response.json();
       alert('포트폴리오가 성공적으로 저장되었습니다!');
-      window.location.href = `${API_BASE}${result.link}`;  // Render 주소 기준으로 포트폴리오 열기
+      window.location.href = result.link;
     } catch (err) {
       console.error('오류:', err);
       alert('요청 처리 중 문제가 발생했습니다.');

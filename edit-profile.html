@@ -96,6 +96,7 @@
   </div>
 
   <script>
+    const API_BASE = "https://portfolio-backend-6op9.onrender.com"
     const user = JSON.parse(localStorage.getItem("user"));
     if (!user || !user.username) {
       alert("로그인이 필요합니다.");
@@ -118,7 +119,7 @@
         formData.append("profilePic", fileInput.files[0]);
 
         try {
-          const uploadRes = await fetch("/upload-profile", {
+          const uploadRes = await fetch(`${API_BASE}/upload-profile`, {
             method: "POST",
             body: formData
           });
@@ -133,7 +134,7 @@
 
       const updatedUser = { realname, bio, profilePic: profilePicUrl };
       try {
-        const res = await fetch(`/api/users/${user.username}`, {
+        const res = await fetch(`${API_BASE}/api/users/${user.username}`, {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(updatedUser)
