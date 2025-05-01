@@ -160,23 +160,22 @@
 </div>
 
 <script>
-  const API_BASE = "https://portfolio-backend-6op9.onrender.com";
   const quests = [];
 
   document.getElementById('quest-input').addEventListener('keyup', function(e) {
-  if (e.key === 'Enter' && !e.isComposing) {
-    e.preventDefault();
-    const value = e.target.value.trim();
-    if (value && !quests.includes(value)) {
-      quests.push(value);
-      const tag = document.createElement('span');
-      tag.className = 'tag';
-      tag.innerHTML = `${value} <i class="fa-solid fa-xmark" onclick="removeQuest(this, '${value}')"></i>`;
-      e.target.before(tag);
-      e.target.value = '';
+    if (e.key === 'Enter' && !e.isComposing) {
+      e.preventDefault();
+      const value = e.target.value.trim();
+      if (value && !quests.includes(value)) {
+        quests.push(value);
+        const tag = document.createElement('span');
+        tag.className = 'tag';
+        tag.innerHTML = `${value} <i class="fa-solid fa-xmark" onclick="removeQuest(this, '${value}')"></i>`;
+        e.target.before(tag);
+        e.target.value = '';
+      }
     }
-  }
-});
+  });
 
   function removeQuest(el, value) {
     const index = quests.indexOf(value);
@@ -215,7 +214,7 @@
     container.appendChild(wrapper);
   }
 
-  document.getElementById("portfolio-form").addEventListener("submit", async function(e) {
+  document.getElementById("portfolio-form").addEventListener("submit", function(e) {
     e.preventDefault();
 
     const user = JSON.parse(localStorage.getItem("user"));
@@ -242,21 +241,6 @@
       blog: document.getElementById('blog').value,
       message: document.getElementById('message').value,
     };
-
-    try {
-      if (!response.ok) {
-        const error = await response.text();
-        alert('오류 발생: ' + error);
-        return;
-      }
-
-      const result = await response.json();
-      alert('포트폴리오가 성공적으로 저장되었습니다!');
-      window.location.href = result.link;
-    } catch (err) {
-      console.error('오류:', err);
-      alert('요청 처리 중 문제가 발생했습니다.');
-    }
 
     localStorage.setItem("portfolioData", JSON.stringify(data));
     window.location.href = "select-template.html";
