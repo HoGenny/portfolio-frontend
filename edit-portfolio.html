@@ -1,186 +1,272 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>포트폴리오 편집</title>
+  <meta charset="UTF-8">
+  <title>포트폴리오 작성</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
   <style>
     body {
       font-family: 'Segoe UI', sans-serif;
-      background-color: #f9fafb;
-      color: #1e1e1e;
+      margin: 0;
       padding: 2rem;
-    }
-    .form-container {
-      max-width: 600px;
-      margin: 5rem auto;
-      background-color: #fff;
-      padding: 2rem;
-      border-radius: 12px;
-      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
     }
     .logo {
       position: fixed;
-      top: -0.5rem;
-      left: 1.2rem;
+      top: 1rem;
+      left: 1.5rem;
       z-index: 1000;
     }
     .logo img {
-      height: 95px;
-      width: auto;
+      height: 75px;
       user-select: none;
     }
-    h2 {
-      margin-bottom: 1.5rem;
-      font-size: 1.6rem;
-      color: #3182f6;
+    .form-container {
+      max-width: 720px;
+      margin: 6rem auto 2rem;
+      background: white;
+      padding: 2rem;
+      border-radius: 16px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+      animation: fadeInUp 1s ease;
     }
-    label {
-      display: block;
-      margin-bottom: 0.4rem;
-      font-weight: 500;
+    h1 {
+      text-align: center;
+      margin-bottom: 2rem;
+      color: #0d6efd;
     }
-    input[type="text"],
-    input[type="file"],
-    textarea {
-      width: 100%;
-      padding: 0.6rem;
+    .section-title {
+      font-weight: 600;
+      font-size: 1.2rem;
+      margin-top: 2rem;
       margin-bottom: 1rem;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      font-size: 1rem;
+      border-bottom: 1px solid #ddd;
+      padding-bottom: 0.5rem;
     }
-    .btn {
-      display: block;
-      width: 100%;
-      padding: 0.75rem;
-      background-color: #3182f6;
-      color: white;
-      border: none;
-      border-radius: 10px;
-      font-size: 1rem;
-      font-weight: 500;
-      cursor: pointer;
-      transition: background 0.3s ease;
+    .section-title i {
+      color: #0d6efd;
+      margin-right: 0.5rem;
+    }
+    .star-select {
+      display: flex;
+      gap: 0.5rem;
+      align-items: center;
+      margin-bottom: 0.75rem;
+    }
+    .star-select input {
+      flex: 2;
+    }
+    .star-select select {
+      flex: 1;
+    }
+    .star-select button {
+      flex: 0;
+    }
+    .form-control:focus, .form-select:focus {
+      border-color: #0d6efd;
+      box-shadow: 0 0 0 0.2rem rgba(13,110,253,.25);
+      transition: all 0.2s ease-in-out;
     }
     .btn:hover {
-      background-color: #2563eb;
+      transform: translateY(-1px);
+      transition: all 0.2s ease;
+    }
+    .tag-input-wrapper {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      padding: 0.5rem;
+    }
+    .tag-input-wrapper input {
+      border: none;
+      flex: 1;
+      min-width: 120px;
+      outline: none;
+    }
+    .tag {
+      background-color: #e7f1ff;
+      color: #0d6efd;
+      padding: 0.3rem 0.6rem;
+      border-radius: 999px;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .tag i {
+      cursor: pointer;
     }
   </style>
 </head>
 <body>
-  <a href="index.html" class="logo">
-    <img src="static/images/logo.png" alt="로고" />
-  </a>
-  <div class="form-container">
-    <h2>나만의 포트폴리오 만들기</h2>
-    <form id="portfolio-form">
-      <label for="name">이름</label>
-      <input type="text" id="name" placeholder="예: 홍길동" required />
+<a href="index.html" class="logo">
+  <img src="static/images/logo.png" alt="로고">
+</a>
+<div class="form-container animate__animated animate__fadeInUp">
+  <h1>포트폴리오 작성</h1>
+  <form id="portfolio-form">
+    <div class="section-title"><i class="fa-solid fa-user"></i>기본 정보</div>
+    <div class="mb-3">
+      <label class="form-label">이름</label>
+      <input type="text" class="form-control" id="name" required>
+    </div>
+    <div class="mb-3">
+      <label class="form-label">한줄 소개</label>
+      <input type="text" class="form-control" id="bio" required>
+    </div>
 
-      <label for="bio">한줄 소개</label>
-      <input type="text" id="bio" placeholder="예: 코드를 모험하는 개발자" required />
+    <div class="section-title"><i class="fa-solid fa-laptop-code"></i>기술 스택</div>
+    <div class="mb-3">
+      <div id="skills-container"></div>
+      <button type="button" class="btn btn-outline-secondary btn-sm" onclick="addSkill()">+ 기술 추가</button>
+    </div>
 
-      <label for="tags">개발자 태그 (쉼표로 구분)</label>
-      <input type="text" id="tags" placeholder="예: 문제해결가, 호기심 폭발, 창의적 사고" />
+    <div class="section-title"><i class="fa-solid fa-rocket"></i>주요 프로젝트</div>
+    <div class="mb-3">
+      <label class="form-label">프로젝트 목록 (한 줄씩 작성)</label>
+      <textarea class="form-control" id="projects" rows="4" placeholder="예: 2025.01 포트폴리오 사이트 제작" required></textarea>
+    </div>
 
-      <label for="timeline">프로젝트 타임라인 (한 줄씩 작성)</label>
-      <textarea id="timeline" rows="4" placeholder="예: 2025.01 - 포트폴리오 제작"></textarea>
+    <div class="section-title"><i class="fa-solid fa-fire"></i>사이드 퀘스트</div>
+    <div class="mb-3">
+      <label class="form-label">비공식 활동 또는 작은 도전 과제들</label>
+      <div id="quest-wrapper" class="tag-input-wrapper">
+        <input type="text" id="quest-input" placeholder="입력 후 Enter" />
+      </div>
+    </div>
 
-      <label for="skills">기술 스택 (한 줄씩 작성)</label>
-      <textarea id="skills" rows="3" placeholder="예: HTML ⭐⭐⭐⭐⭐"></textarea>
+    <div class="section-title"><i class="fa-solid fa-link"></i>연락처 및 링크</div>
+    <div class="mb-3">
+      <label class="form-label">이메일</label>
+      <input type="email" class="form-control" id="email" required>
+    </div>
+    <div class="mb-3">
+      <label class="form-label">GitHub 링크</label>
+      <input type="url" class="form-control" id="github">
+    </div>
+    <div class="mb-3">
+      <label class="form-label">블로그 링크</label>
+      <input type="url" class="form-control" id="blog">
+    </div>
+    <div class="mb-3">
+      <label class="form-label">한마디</label>
+      <input type="text" class="form-control" id="message">
+    </div>
+    <button type="submit" class="btn btn-primary w-100">템플릿 선택하기</button>
+  </form>
+</div>
 
-      <label for="quests">사이드 퀘스트 (한 줄씩 작성)</label>
-      <textarea id="quests" rows="3" placeholder="예: 교내 해커톤 참여"></textarea>
+<script>
+  const API_BASE = "https://portfolio-backend-6op9.onrender.com";
+  const quests = [];
 
-      <label for="email">이메일</label>
-      <input type="text" id="email" placeholder="예: me@example.com" />
+  document.getElementById('quest-input').addEventListener('keyup', function(e) {
+  if (e.key === 'Enter' && !e.isComposing) {
+    e.preventDefault();
+    const value = e.target.value.trim();
+    if (value && !quests.includes(value)) {
+      quests.push(value);
+      const tag = document.createElement('span');
+      tag.className = 'tag';
+      tag.innerHTML = `${value} <i class="fa-solid fa-xmark" onclick="removeQuest(this, '${value}')"></i>`;
+      e.target.before(tag);
+      e.target.value = '';
+    }
+  }
+});
 
-      <label for="github">GitHub 링크</label>
-      <input type="text" id="github" placeholder="예: https://github.com/myid" />
+  function removeQuest(el, value) {
+    const index = quests.indexOf(value);
+    if (index > -1) quests.splice(index, 1);
+    el.parentElement.remove();
+  }
 
-      <label for="blog">블로그 링크</label>
-      <input type="text" id="blog" placeholder="예: https://blog.me" />
+  function addSkill() {
+    const container = document.getElementById("skills-container");
+    const wrapper = document.createElement("div");
+    wrapper.className = "star-select";
 
-      <label for="message">마무리 문장</label>
-      <input type="text" id="message" placeholder="예: 함께하면 즐거운 개발자가 되고 싶습니다." />
+    const input = document.createElement("input");
+    input.type = "text";
+    input.placeholder = "기술명 (예: React)";
+    input.className = "form-control";
 
-      <button type="submit" class="btn">포트폴리오 저장</button>
-    </form>
-  </div>
+    const select = document.createElement("select");
+    select.className = "form-select";
+    for (let i = 1; i <= 5; i++) {
+      const option = document.createElement("option");
+      option.value = '⭐'.repeat(i);
+      option.textContent = '⭐'.repeat(i);
+      select.appendChild(option);
+    }
 
-  <script>
-    const form = document.getElementById("portfolio-form");
+    const removeBtn = document.createElement("button");
+    removeBtn.textContent = "🗑️";
+    removeBtn.type = "button";
+    removeBtn.className = "btn btn-sm btn-danger";
+    removeBtn.onclick = () => wrapper.remove();
 
-    form.addEventListener("submit", function (e) {
-      e.preventDefault();
+    wrapper.appendChild(input);
+    wrapper.appendChild(select);
+    wrapper.appendChild(removeBtn);
+    container.appendChild(wrapper);
+  }
 
-      const data = {
-        name: document.getElementById("name").value,
-        bio: document.getElementById("bio").value,
-        tags: document.getElementById("tags").value.split(",").map(s => s.trim()),
-        timeline: document.getElementById("timeline").value.split("\n"),
-        skills: document.getElementById("skills").value.split("\n"),
-        quests: document.getElementById("quests").value.split("\n"),
-        email: document.getElementById("email").value,
-        github: document.getElementById("github").value,
-        blog: document.getElementById("blog").value,
-        message: document.getElementById("message").value
-      };
+  document.getElementById("portfolio-form").addEventListener("submit", async function(e) {
+    e.preventDefault();
 
-      const html = `<!DOCTYPE html>
-<html lang="ko">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>${data.name}의 포트폴리오</title>
-  <style>
-    body { font-family: 'Segoe UI', sans-serif; margin: 0; }
-    section { height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; scroll-snap-align: start; text-align: center; padding: 2rem; }
-    .section-title { font-size: 2rem; color: #3182f6; margin-bottom: 1rem; }
-    .tags span, .skills div, .quests div { margin: 0.4rem; padding: 0.6rem 1rem; background: #eff6ff; border-radius: 10px; }
-    a { color: #3182f6; text-decoration: none; margin: 0 0.5rem; }
-  </style>
-</head>
-<body>
-  <section class="hero">
-    <h1>${data.name}</h1>
-    <p>${data.bio}</p>
-  </section>
-  <section>
-    <div class="section-title">개발자 태그</div>
-    <div class="tags">${data.tags.map(tag => `<span>${tag}</span>`).join("")}</div>
-  </section>
-  <section>
-    <div class="section-title">프로젝트 타임라인</div>
-    ${data.timeline.map(item => `<div>${item}</div>`).join("")}
-  </section>
-  <section>
-    <div class="section-title">기술 스택</div>
-    <div class="skills">${data.skills.map(skill => `<div>${skill}</div>`).join("")}</div>
-  </section>
-  <section>
-    <div class="section-title">사이드 퀘스트</div>
-    <div class="quests">${data.quests.map(q => `<div>${q}</div>`).join("")}</div>
-  </section>
-  <section>
-    <div class="section-title">연락처</div>
-    <p>${data.email}</p>
-    <p>
-      ${data.github ? `<a href="${data.github}" target="_blank">GitHub</a>` : ""}
-      ${data.blog ? `<a href="${data.blog}" target="_blank">Blog</a>` : ""}
-    </p>
-  </section>
-  <section>
-    <p>${data.message}</p>
-  </section>
-</body>
-</html>`;
+    const user = JSON.parse(localStorage.getItem("user"));
+    if (!user) {
+      alert("로그인 정보가 없습니다.");
+      return;
+    }
 
-      localStorage.setItem("personalPortfolioHTML", html);
-      alert("포트폴리오가 저장되었습니다!");
-      window.location.href = "mypage.html";
+    const skills = Array.from(document.querySelectorAll('.star-select')).map(row => {
+      const name = row.querySelector('input').value;
+      const level = row.querySelector('select').value;
+      return `${name} ${level}`;
     });
-  </script>
+
+    const data = {
+      username: user.username,
+      name: document.getElementById('name').value,
+      bio: document.getElementById('bio').value,
+      skills,
+      projects: document.getElementById('projects').value.split('\n').map(s => s.trim()),
+      quests,
+      email: document.getElementById('email').value,
+      github: document.getElementById('github').value,
+      blog: document.getElementById('blog').value,
+      message: document.getElementById('message').value,
+    };
+
+    try {
+      const response = await fetch(`${API_BASE}/api/portfolios`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+
+      if (!response.ok) {
+        const error = await response.text();
+        alert('오류 발생: ' + error);
+        return;
+      }
+
+      const result = await response.json();
+      alert('포트폴리오가 성공적으로 저장되었습니다!');
+      window.location.href = result.link;
+    } catch (err) {
+      console.error('오류:', err);
+      alert('요청 처리 중 문제가 발생했습니다.');
+    }
+
+    localStorage.setItem("portfolioData", JSON.stringify(data));
+    window.location.href = "select-template.html";
+  });
+</script>
 </body>
 </html>
