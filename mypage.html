@@ -173,29 +173,30 @@
 
   <script>
     const API_BASE = "https://portfolio-backend-6op9.onrender.com";
-  
     const user = JSON.parse(localStorage.getItem("user"));
-    const response = await fetch('/api/portfolios?user=${user.username}');
+
     if (!user) {
       alert("로그인 후 이용 가능합니다.");
       window.location.href = "login.html";
-    }
+    } else {
+        // 생년월일 포맷 수정
+        let formattedBirthdate = "-";
+        if (user.birthdate) {
+          const date = new Date(user.birthdate);
+          formattedBirthdate = date.toISOString().slice(0, 10);
+        }
   
-    // 생년월일 포맷 수정
-    let formattedBirthdate = "-";
-    if (user.birthdate) {
-      const date = new Date(user.birthdate);
-      formattedBirthdate = date.toISOString().slice(0, 10);
-    }
+        // 정보 표시
+        document.getElementById("username").textContent = user.realname || user.username;
+        document.getElementById("birthdate").textContent = "생년월일: " + formattedBirthdate;
+        document.getElementById("bio").textContent = user.bio || "한 줄 소개가 여기에 표시됩니다.";
+
+        loadServerPortfolios();
+      }
   
-    // 정보 표시
-    document.getElementById("username").textContent = user.realname || user.username;
-    document.getElementById("birthdate").textContent = "생년월일: " + formattedBirthdate;
-    document.getElementById("bio").textContent = user.bio || "한 줄 소개가 여기에 표시됩니다.";
-  
-    async function loadServerPortfolios() {
+      async function loadServerPortfolios() {
       try {
-        const response = await fetch(`${API_BASE}/api/portfolios`);
+        const response = await fetch(`${API_BASE}/api/portfolios?user=${user.username}`);
         const files = await response.json();
   
         const portfolioSection = document.getElementById("portfolio-section");
