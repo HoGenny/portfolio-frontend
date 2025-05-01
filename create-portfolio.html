@@ -71,7 +71,13 @@
   document.getElementById('portfolio-form').addEventListener('submit', async function(e) {
     e.preventDefault();
   
+    const user = JSON.parse(localStorage.getItem("user"));
+    if (!user) {
+      alert("로그인 정보가 없습니다.");
+      return;
+    }
     const data = {
+      username: user.username,
       name: document.getElementById('name').value,
       bio: document.getElementById('bio').value,
       skills: document.getElementById('skills').value.split(',').map(s => s.trim()),
