@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>포트폴리오 수정</title>
-  <script src="https://editor.unlayer.com/embed.js?apiKey=FlzzSTsih4E5imcdk6zjdXsb2edJrJf3Pl7Ie3SQJdOkN9ZDiH9O5GuhQK4GhDgx"></script>
+  <script src="https://unpkg.com/@unlayer/editor@1.0.0/dist/unlayer.js"></script>
 
   <style>
     body {
@@ -52,12 +52,12 @@
     }
 
     unlayer.init({
-  id: 'editor',
-  displayMode: 'web',
-  loaded: function () {
-    loadPortfolioHtml();
-  }
-});
+      id: 'editor',
+      displayMode: 'web',
+      loaded: function () {
+        loadPortfolioHtml();
+      }
+    });
 
     // 기존 HTML 로드 후 적용
     async function loadPortfolioHtml() {
