@@ -6,7 +6,6 @@
   <title>포트폴리오 수정</title>
   <script src="https://cdn.jsdelivr.net/npm/@unlayer/editor@1.0.0/dist/unlayer.min.js"></script>
 
-
   <style>
     body {
       margin: 0;
@@ -79,8 +78,6 @@
         alert("포트폴리오 불러오기에 실패했습니다.");
       }
     }
-
-    loadPortfolioHtml();
 
     async function savePortfolio() {
       unlayer.exportHtml(async data => {
