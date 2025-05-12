@@ -59,6 +59,14 @@
     async function loadPortfolioHtml() {
       try {
         const res = await fetch(`${API_BASE}/api/portfolios/${filename}`);
+        console.log("fetch 응답 상태:", res.status);
+
+        if (!res.ok) {
+          const errorText = await res.text();
+          console.error("fetch 실패 내용:", errorText);
+          throw new Error("응답 오류");
+        }
+        
         const html = await res.text();
         unlayer.importHtml(html);
       } catch (err) {
