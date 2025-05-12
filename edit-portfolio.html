@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>포트폴리오 수정</title>
-  <script src="https://cdn.jsdelivr.net/npm/@unlayer/editor@1.2.9/dist/unlayer.min.js"></script>
+  <script src="https://editor.unlayer.com/embed.js?apiKey=FlzzSTsih4E5imcdk6zjdXsb2edJrJf3Pl7Ie3SQJdOkN9ZDiH9O5GuhQK4GhDgx"></script>
 
   <style>
     body {
@@ -51,34 +51,31 @@
       location.href = "mypage.html";
     }
 
+    // 에디터 초기화 + HTML 불러오기
     unlayer.init({
       id: 'editor',
       displayMode: 'web',
-      loaded: function () {
-        loadPortfolioHtml();
+      loaded: async function () {
+        try {
+          const res = await fetch(`${API_BASE}/api/portfolios/${filename}`);
+          console.log("fetch 응답 상태:", res.status);
+
+          if (!res.ok) {
+            const errorText = await res.text();
+            console.error("fetch 실패 내용:", errorText);
+            throw new Error("응답 오류");
+          }
+
+          const html = await res.text();
+          unlayer.importHtml(html);
+        } catch (err) {
+          console.error("로드 실패:", err);
+          alert("포트폴리오 불러오기에 실패했습니다.");
+        }
       }
     });
 
-    // 기존 HTML 로드 후 적용
-    async function loadPortfolioHtml() {
-      try {
-        const res = await fetch(`${API_BASE}/api/portfolios/${filename}`);
-        console.log("fetch 응답 상태:", res.status);
-
-        if (!res.ok) {
-          const errorText = await res.text();
-          console.error("fetch 실패 내용:", errorText);
-          throw new Error("응답 오류");
-        }
-
-        const html = await res.text();
-        unlayer.importHtml(html);
-      } catch (err) {
-        console.error("로드 실패:", err);
-        alert("포트폴리오 불러오기에 실패했습니다.");
-      }
-    }
-
+    // 저장 기능
     async function savePortfolio() {
       unlayer.exportHtml(async data => {
         const html = data.html;
