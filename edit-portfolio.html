@@ -60,7 +60,7 @@
       try {
         const res = await fetch(`${API_BASE}/api/portfolios/${filename}`);
         const html = await res.text();
-        unlayer.importHTML(html);
+        unlayer.importHtml(html);
       } catch (err) {
         console.error("로드 실패:", err);
         alert("포트폴리오 불러오기에 실패했습니다.");
