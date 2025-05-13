@@ -3,83 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>회원가입 - 홍길동의 포트폴리오</title>
-  <style>
-    :root {
-      --bg-color: #ffffff;
-      --text-color: #1e1e1e;
-      --primary-blue: #3182f6;
-      --light-blue: #eff6ff;
-      --shadow: 0 8px 20px rgba(49, 130, 246, 0.1);
-    }
-    .logo {
-      position: fixed;
-      top: -0.5rem;
-      left: 1.2rem;
-      z-index: 1000;
-    }
-    .logo img {
-      height: 95px;
-      width: auto;
-      user-select: none;
-    }
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    body, html {
-      height: 100%;
-      font-family: 'Apple SD Gothic Neo', 'Segoe UI', sans-serif;
-      background-color: var(--light-blue);
-      color: var(--text-color);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .signup-container {
-      background-color: #fff;
-      padding: 2.5rem;
-      border-radius: 12px;
-      box-shadow: var(--shadow);
-      width: 100%;
-      max-width: 450px;
-      text-align: center;
-    }
-    .signup-container h2 {
-      color: var(--primary-blue);
-      margin-bottom: 2rem;
-    }
-    .signup-container input {
-      width: 100%;
-      padding: 0.75rem;
-      margin: 0.5rem 0;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      font-size: 1rem;
-    }
-    .signup-container button {
-      width: 100%;
-      padding: 0.75rem;
-      background-color: var(--primary-blue);
-      color: white;
-      font-size: 1rem;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      margin-top: 1rem;
-      transition: background 0.3s ease;
-    }
-    .signup-container button:hover {
-      background-color: #2563eb;
-    }
-    .note {
-      font-size: 0.85rem;
-      color: #666;
-      margin-top: 1rem;
-      text-align: left;
-    }
-  </style>
+  <title>회원가입</title>
+  <link rel="stylesheet" href="static/css/signup.css">
+
 </head>
 <body>
   <a href="index.html" class="logo">
@@ -99,44 +25,7 @@
       ※ 비밀번호는 8자 이상이며, <strong>대/소문자와 숫자를 포함</strong>해야 합니다.
     </div>
   </div>
+  <script src="static/js/signup.js"></script>
 
-  <script>
-    const API_BASE = "https://portfolio-backend-6op9.onrender.com";
-  
-    async function register() {
-      const username = document.getElementById("username").value;
-      const password = document.getElementById("password").value;
-      const confirmPassword = document.getElementById("confirm-password").value;
-      const realname = document.getElementById("realname").value;
-      const birthdate = document.getElementById("birthdate").value;
-  
-      if (password !== confirmPassword) {
-        alert("비밀번호가 일치하지 않습니다.");
-        return;
-      }
-  
-      try {
-        const response = await fetch(`${API_BASE}/users/signup`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ username, password, realname, birthdate })
-        });
-  
-        const result = await response.json();
-  
-        if (!response.ok) {
-          alert("회원가입 실패: " + result.message);
-          return;
-        }
-  
-        alert("회원가입 완료! 이제 로그인해보세요.");
-        window.location.href = "login.html";
-      } catch (err) {
-        console.error("회원가입 요청 실패:", err);
-        alert("서버와의 연결에 실패했습니다.");
-      }
-    }
-  </script>
-  
 </body>
 </html>

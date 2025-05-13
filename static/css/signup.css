@@ -1,0 +1,74 @@
+:root {
+  --bg-color: #ffffff;
+  --text-color: #1e1e1e;
+  --primary-blue: #3182f6;
+  --light-blue: #eff6ff;
+  --shadow: 0 8px 20px rgba(49, 130, 246, 0.1);
+}
+.logo {
+  position: fixed;
+  top: -0.5rem;
+  left: 1.2rem;
+  z-index: 1000;
+}
+.logo img {
+  height: 95px;
+  width: auto;
+  user-select: none;
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body, html {
+  height: 100%;
+  font-family: 'Apple SD Gothic Neo', 'Segoe UI', sans-serif;
+  background-color: var(--light-blue);
+  color: var(--text-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.signup-container {
+  background-color: #fff;
+  padding: 2.5rem;
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  width: 100%;
+  max-width: 450px;
+  text-align: center;
+}
+.signup-container h2 {
+  color: var(--primary-blue);
+  margin-bottom: 2rem;
+}
+.signup-container input {
+  width: 100%;
+  padding: 0.75rem;
+  margin: 0.5rem 0;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 1rem;
+}
+.signup-container button {
+  width: 100%;
+  padding: 0.75rem;
+  background-color: var(--primary-blue);
+  color: white;
+  font-size: 1rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-top: 1rem;
+  transition: background 0.3s ease;
+}
+.signup-container button:hover {
+  background-color: #2563eb;
+}
+.note {
+  font-size: 0.85rem;
+  color: #666;
+  margin-top: 1rem;
+  text-align: left;
+}

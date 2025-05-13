@@ -1,0 +1,127 @@
+:root {
+    --blue: #3182f6;
+    --light-bg: #f9fafb;
+    --text: #1e1e1e;
+  }
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  body {
+    font-family: 'Segoe UI', sans-serif;
+    background-color: var(--light-bg);
+    color: var(--text);
+    line-height: 1.6;
+  }
+  .logo {
+    position: fixed;
+    top: -0.5rem;
+    left: 1.2rem;
+    z-index: 1000;
+  }
+  .logo img {
+    height: 95px;
+    width: auto;
+    user-select: none;
+  }
+  .container {
+    max-width: 1000px;
+    margin: 6rem auto 3rem;
+    padding: 1rem;
+  }
+  .profile-section {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    margin-bottom: 2rem;
+  }
+  .profile-pic {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #ddd;
+  }
+  .profile-info {
+    flex: 1;
+  }
+  .profile-info h2 {
+    font-size: 1.8rem;
+    margin-bottom: 0.3rem;
+  }
+  .profile-info p {
+    color: #555;
+    font-size: 1rem;
+    margin-bottom: 0.3rem;
+  }
+  .edit-btn {
+    background-color: var(--blue);
+    color: white;
+    padding: 0.4rem 1rem;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    margin-top: 0.5rem;
+  }
+  .portfolio-section {
+    margin-top: 2rem;
+    display: none;
+  }
+  .portfolio-section.active {
+    display: block;
+  }
+  .portfolio-section h3 {
+    font-size: 1.4rem;
+    margin-bottom: 1rem;
+  }
+  .portfolio-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 1.2rem;
+  }
+  .portfolio-item {
+    background-color: white;
+    border-radius: 12px;
+    padding: 1rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    text-align: center;
+    cursor: pointer;
+  }
+  .portfolio-item img {
+    width: 100%;
+    height: 160px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 0.5rem;
+  }
+  .portfolio-item-title {
+    font-size: 1rem;
+    font-weight: 500;
+  }
+  .no-portfolio {
+    text-align: center;
+    color: #888;
+    margin-top: 1rem;
+  }
+  iframe {
+    width: 100%;
+    height: 600px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    margin-top: 2rem;
+  }
+  .btn {
+    padding: 0.5rem 1rem;
+    background-color: #3182f6;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    margin-right: 0.5rem;
+  }
+  .btn.delete {
+    background-color: #e11d48;
+  }
