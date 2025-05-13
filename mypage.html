@@ -4,34 +4,41 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>마이페이지</title>
+  <!-- CSS 파일 연결 -->
   <link rel="stylesheet" href="static/css/mypage.css">
 </head>
 <body>
+  <!-- 로고 -->
   <a href="index.html" class="logo">
     <img src="static/images/logo.png" alt="로고">
   </a>
+
+  <!-- 메인 컨테이너 -->
   <div class="container">
+    <!-- 프로필 섹션 -->
     <div class="profile-section">
-      <img src="static/images/default-profile.png" alt="" class="profile-pic" id="profile-pic">
+      <img src="static/images/default-profile.png" alt="프로필 사진" class="profile-pic" id="profile-pic">
       <div class="profile-info">
         <h2 id="username">이름</h2>
         <p id="bio">한 줄 소개가 여기에 표시됩니다.</p>
         <p id="birthdate">생년월일: </p>
-        <button class="edit-btn" onclick="location.href='/edit-profile.html'">프로필 수정
-        </button>
+        <button class="edit-btn" onclick="location.href='/edit-profile.html'">프로필 수정</button>
       </div>
     </div>
 
+    <!-- 포트폴리오 섹션 -->
     <div class="portfolio-section" id="portfolio-section">
       <h3>포트폴리오 목록</h3>
       <div class="portfolio-list" id="portfolio-list"></div>
       <div class="no-portfolio" id="no-portfolio" style="display: none;">저장된 포트폴리오가 없습니다.</div>
     </div>
 
+    <!-- 추가 섹션 (미사용) -->
     <div id="personal-preview"></div>
     <div id="personal-buttons" style="margin-top: 1rem;"></div>
   </div>
 
+  <!-- JavaScript 파일 연결 -->
   <script src="static/js/mypage.js"></script>  
 </body>
 </html>
