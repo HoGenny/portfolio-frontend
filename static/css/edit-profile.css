@@ -1,0 +1,67 @@
+:root {
+  --blue: #3182f6;
+  --light-bg: #f9fafb;
+  --text: #1e1e1e;
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background-color: var(--light-bg);
+  color: var(--text);
+  padding: 2rem;
+}
+.logo {
+  position: fixed;
+  top: -0.5rem;
+  left: 1.2rem;
+  z-index: 1000;
+}
+.logo img {
+  height: 95px;
+  width: auto;
+  user-select: none;
+}
+.form-container {
+  max-width: 500px;
+  margin: 6rem auto;
+  background-color: white;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
+}
+h2 {
+  margin-bottom: 1.5rem;
+  font-size: 1.6rem;
+}
+label {
+  display: block;
+  margin-bottom: 0.4rem;
+  font-weight: 500;
+}
+input[type="text"],
+input[type="file"] {
+  width: 100%;
+  padding: 0.6rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  margin-bottom: 1.2rem;
+  font-size: 1rem;
+}
+.submit-btn {
+  width: 100%;
+  padding: 0.8rem;
+  background-color: var(--blue);
+  color: white;
+  font-size: 1rem;
+  font-weight: 500;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+}
+.submit-btn:hover {
+  background-color: #2563eb;
+}

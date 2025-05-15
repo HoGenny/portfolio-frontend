@@ -4,75 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>프로필 수정</title>
-  <style>
-    :root {
-      --blue: #3182f6;
-      --light-bg: #f9fafb;
-      --text: #1e1e1e;
-    }
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      background-color: var(--light-bg);
-      color: var(--text);
-      padding: 2rem;
-    }
-    .logo {
-      position: fixed;
-      top: -0.5rem;
-      left: 1.2rem;
-      z-index: 1000;
-    }
-    .logo img {
-      height: 95px;
-      width: auto;
-      user-select: none;
-    }
-    .form-container {
-      max-width: 500px;
-      margin: 6rem auto;
-      background-color: white;
-      padding: 2rem;
-      border-radius: 12px;
-      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
-    }
-    h2 {
-      margin-bottom: 1.5rem;
-      font-size: 1.6rem;
-    }
-    label {
-      display: block;
-      margin-bottom: 0.4rem;
-      font-weight: 500;
-    }
-    input[type="text"],
-    input[type="file"] {
-      width: 100%;
-      padding: 0.6rem;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      margin-bottom: 1.2rem;
-      font-size: 1rem;
-    }
-    .submit-btn {
-      width: 100%;
-      padding: 0.8rem;
-      background-color: var(--blue);
-      color: white;
-      font-size: 1rem;
-      font-weight: 500;
-      border: none;
-      border-radius: 10px;
-      cursor: pointer;
-    }
-    .submit-btn:hover {
-      background-color: #2563eb;
-    }
-  </style>
+  <link rel="stylesheet" href="static/css/edit-profile.css">
 </head>
 <body>
   <a href="index.html" class="logo">
@@ -94,65 +26,7 @@
       <button type="submit" class="submit-btn">저장하기</button>
     </form>
   </div>
-
-  <script>
-    const API_BASE = "https://portfolio-backend-6op9.onrender.com"
-    const user = JSON.parse(localStorage.getItem("user"));
-    if (!user || !user.username) {
-      alert("로그인이 필요합니다.");
-      window.location.href = "login.html";
-    }
-
-    document.getElementById("realname").value = user.realname || "";
-    document.getElementById("bio").value = user.bio || "";
-
-    document.getElementById("edit-profile-form").addEventListener("submit", async function (e) {
-      e.preventDefault();
-
-      const realname = document.getElementById("realname").value;
-      const bio = document.getElementById("bio").value;
-      const fileInput = document.getElementById("profile-pic");
-      let profilePicUrl = user.profilePic || "";
-
-      if (fileInput.files.length > 0) {
-        const formData = new FormData();
-        formData.append("profilePic", fileInput.files[0]);
-
-        try {
-          const uploadRes = await fetch(`${API_BASE}/upload-profile`, {
-            method: "POST",
-            body: formData
-          });
-          const uploadData = await uploadRes.json();
-          profilePicUrl = uploadData.url;
-        } catch (err) {
-          console.error("파일 업로드 실패", err);
-          alert("이미지 업로드 실패");
-          return;
-        }
-      }
-
-      const updatedUser = { realname, bio, profilePic: profilePicUrl };
-      try {
-        const res = await fetch(`${API_BASE}/api/users/${user.username}`, {
-          method: "PUT",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(updatedUser)
-        });
-
-        if (!res.ok) throw new Error("수정 실패");
-
-        const saved = await res.json();
-        localStorage.setItem("user", JSON.stringify(saved));
-        if (profilePicUrl) localStorage.setItem("profilePic", profilePicUrl);
-
-        alert("프로필이 수정되었습니다.");
-        window.location.href = "mypage.html";
-      } catch (err) {
-        console.error("프로필 수정 실패", err);
-        alert("서버 오류로 저장 실패");
-      }
-    });
-  </script>
+  <!-- JavaScript 파일 연결 -->
+  <script src="static/js/edit-profile.js"></script>
 </body>
 </html>
