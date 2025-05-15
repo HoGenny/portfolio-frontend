@@ -1,0 +1,51 @@
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #f8f9fa;
+  padding: 2rem;
+}
+.template-container {
+  max-width: 960px;
+  margin: 0 auto;
+}
+.template-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  justify-content: center;
+}
+.template-option {
+  width: 300px;
+  border: 2px solid transparent;
+  border-radius: 12px;
+  transition: border-color 0.3s ease, transform 0.2s ease;
+  cursor: pointer;
+  background: white;
+  padding: 1rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+.template-option:hover {
+  border-color: #0d6efd;
+  transform: scale(1.02);
+}
+.template-option.selected {
+  border-color: #0d6efd;
+  box-shadow: 0 0 0 4px rgba(13, 110, 253, 0.2);
+}
+.template-preview {
+  width: 100%;
+  height: 240px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  transform: scale(0.8);
+  transform-origin: top center;
+  pointer-events: none;
+}
+.template-label {
+  text-align: center;
+  margin-top: 0.75rem;
+  font-weight: 500;
+}
+.submit-area {
+  margin-top: 3rem;
+  text-align: center;
+}
